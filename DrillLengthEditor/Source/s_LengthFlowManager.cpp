@@ -214,7 +214,7 @@ C_LEPlugin* S_LengthFlowManager::openBatchOne(QString file_name){
 	QStringList temp_list = QStringList();
 	if (plugin->isForbidden() == true){
 		temp_list.push_back("该插件禁止编辑最大值。");
-		this->m_single_plugin->message = temp_list.join("\n");
+		plugin->message = temp_list.join("\n");
 		return plugin;
 	}
 	if (plugin->isEditable() == false){
