@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/DrillLengthEditor">
+        <file>Resources/小爱丽丝1.png</file>
+        <file>Resources/小爱丽丝2.png</file>
+    </qresource>
+</RCC>
