@@ -43,7 +43,7 @@ class S_LengthScanner : public QObject
 		QString doOverwritePlugin(QString context, C_LEPluginParam param, C_LEConfigData config);
 	private:
 												//覆写 - 根据 "阶段-1" 获取到 "@param 阶段-1" 的全部参数字符串
-		QStringList getParamStringList(QStringList contextList, QString paramName);
+		QStringList getParamStringList(QStringList contextList, QRegExp re);
 		
 };
 

@@ -96,6 +96,20 @@ QString C_LEPluginParam::getParentName(int index){
 	return result;
 }
 /*-------------------------------------------------
+		获取 - 变量注释名（全词匹配用）
+*/
+QRegExp C_LEPluginParam::getParamCommentRe(int index){
+	QString param_re = "@param[ ]*" + this->getParamName(index) + "$";
+	return QRegExp(param_re);
+}
+/*-------------------------------------------------
+		获取 - 变量注释组名（全词匹配用）
+*/
+QRegExp C_LEPluginParam::getParentCommentRe(int index){
+	QString parent_re = "@param[ ]*" + this->getParentName(index) + "$";
+	return QRegExp(parent_re);
+}
+/*-------------------------------------------------
 		获取 - 是否分组
 */
 bool C_LEPluginParam::isParentGrouping(){

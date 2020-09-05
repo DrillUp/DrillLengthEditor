@@ -47,6 +47,10 @@ class C_LEPluginParam{
 		QString getParamName(int index);
 										//获取 - 变量组名 "--阶段组21至40--"（从1开始计数）
 		QString getParentName(int index);
+										//获取 - 变量注释名 "@param[ ]*阶段-210$"（全词匹配用，从1开始计数）
+		QRegExp getParamCommentRe(int index);
+										//获取 - 变量注释组名 "@param[ ]*--阶段组21至40--$"（全词匹配用，从1开始计数）
+		QRegExp getParentCommentRe(int index);
 										//获取 - 是否分组
 		bool isParentGrouping();
 };

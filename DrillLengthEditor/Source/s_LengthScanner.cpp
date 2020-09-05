@@ -210,24 +210,30 @@ QString S_LengthScanner::doOverwritePlugin(QString context, C_LEPluginParam para
 	if (!param.isParentGrouping()){
 
 		// > 找到变量起始行
-		int i_param = 0;
+		int i_param = -1;
 		for (int i = 0; i < context_list.count(); i++){
 			QString text = context_list.at(i);
-			if (text.contains("@param") && text.contains(param.getParamName(1))){
+			if (text.contains(QRegExp(param.getParamCommentRe(1)))){	//必须全词匹配（"@param SV敌人-1" 不能匹配 "敌人-%d" ）
 				i_param = i;
 				break;
 			}
 		}
 
+		// > 严重错误检查
+		if (i_param == -1){
+			QMessageBox::warning(nullptr, "错误", "插件" + config.getPluginName() + "转换时发生了严重错误，该错误绕开了编辑器的检查程序。\n请将该错误的具体情况告知我drill_up。", QMessageBox::Yes);
+			return "";
+		}
+
 		// > 找到第一个变量结构
-		QStringList param_str_list = this->getParamStringList(context_list, param.getParamName(1));
+		QStringList param_str_list = this->getParamStringList(context_list, param.getParamCommentRe(1));
 
 		// > 迭代遍历删除行
 		int name_index = param.getRealLen();
 		bool deleteOn = false;
 		for (int i = context_list.count() - 1; i >= i_param; i--){
-			QString text = context_list.at(i);
-			if (text.contains("@param") && text.contains(param.getParamName(name_index))){
+			QString text = context_list.at(i).trimmed();
+			if (text.contains(QRegExp(param.getParamCommentRe(name_index)))){
 				deleteOn = true;
 				name_index--;
 				context_list.removeAt(i);
@@ -263,22 +269,36 @@ QString S_LengthScanner::doOverwritePlugin(QString context, C_LEPluginParam para
 		int i_param = 0;
 		for (int i = 0; i < context_list.count(); i++){
 			QString text = context_list.at(i);
-			if (text.contains("@param") && text.contains(param.getParentName(1))){
+			if (text.contains(QRegExp(param.getParamCommentRe(1)))){	//必须全词匹配（"@param SV敌人-1" 不能匹配 "敌人-%d" ）
 				i_param = i;
 				break;
 			}
 		}
+		int i_parent = 0;
+		for (int i = 0; i < context_list.count(); i++){
+			QString text = context_list.at(i);
+			if (text.contains(QRegExp(param.getParentCommentRe(1)))){
+				i_parent = i;
+				break;
+			}
+		}
+
+		// > 严重错误检查
+		if (i_param == -1 || i_parent == -1){
+			QMessageBox::warning(nullptr, "错误", "插件" + config.getPluginName() + "转换时发生了严重错误，该错误绕开了编辑器的检查程序。\n请将该错误的具体情况告知我drill_up。", QMessageBox::Yes);
+			return "";
+		}
 		
 		// > 找到第一个变量结构
-		QStringList param_str_list = this->getParamStringList(context_list, param.getParamName(1));
-		QStringList parent_str_list = this->getParamStringList(context_list, param.getParentName(1));
+		QStringList param_str_list = this->getParamStringList(context_list, param.getParamCommentRe(1));
+		QStringList parent_str_list = this->getParamStringList(context_list, param.getParentCommentRe(1));
 
 		// > 迭代遍历删除行
 		int name_index = param.getRealLen();
 		bool deleteOn = false;
 		for (int i = context_list.count() - 1; i >= i_param; i--){
-			QString text = context_list.at(i);
-			if (text.contains("@param") && text.contains(param.getParamName(name_index))){
+			QString text = context_list.at(i).trimmed();
+			if (text.contains(QRegExp(param.getParamCommentRe(name_index)))){
 				deleteOn = true;
 				name_index--;
 				context_list.removeAt(i);
@@ -297,9 +317,9 @@ QString S_LengthScanner::doOverwritePlugin(QString context, C_LEPluginParam para
 		}
 		// > 迭代遍历删除分组
 		name_index = param.getRealLen();
-		for (int i = context_list.count() - 1; i >= i_param; i--){
-			QString text = context_list.at(i);
-			if (text.contains("@param") && text.contains(param.getParentName(name_index))){
+		for (int i = context_list.count() - 1; i >= i_parent; i--){
+			QString text = context_list.at(i).trimmed();
+			if (text.contains(QRegExp(param.getParentCommentRe(name_index)))){
 				deleteOn = true;
 				name_index -= 20;
 				context_list.removeAt(i);
@@ -361,19 +381,19 @@ QString S_LengthScanner::doOverwritePlugin(QString context, C_LEPluginParam para
 /*-------------------------------------------------
 		覆写 - 根据 "阶段-1" 获取到 "@param 阶段-1" 的全部参数字符串
 */
-QStringList S_LengthScanner::getParamStringList(QStringList contextList, QString paramName){
+QStringList S_LengthScanner::getParamStringList(QStringList contextList,QRegExp re){
 	QStringList result_list = QStringList();
 	bool finded = false;
 	for (int i = 0; i < contextList.count(); i++){
 		QString text = contextList.at(i);
 		if (finded == false){
-			if (text.contains("@param") && text.contains(paramName)){
+			if (text.contains(re)){
 				finded = true;
 				result_list.append(text);
 			}
 		}
 		else{	// finded == true
-			if (text.contains("@")){
+			if (text.contains("@") && !text.contains("@param")){
 				result_list.append(text);
 			}else{
 				// > 结构寻找结束
