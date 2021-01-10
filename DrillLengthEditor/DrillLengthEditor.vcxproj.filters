@@ -1,15 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;cxx;c;def</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
-      <Extensions>qrc;*</Extensions>
-      <ParseFiles>false</ParseFiles>
-    </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
       <Extensions>moc;h;cpp</Extensions>
@@ -25,46 +16,55 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Source Files\主窗口">
-      <UniqueIdentifier>{7e71b920-6dd4-4586-91bd-abf08770533e}</UniqueIdentifier>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
     </Filter>
-    <Filter Include="Source Files\流程">
-      <UniqueIdentifier>{2cf7a56b-0fe0-469e-a11d-88742f07322e}</UniqueIdentifier>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
     </Filter>
-    <Filter Include="Source Files\核心">
+    <Filter Include="源文件\【核心】">
       <UniqueIdentifier>{5e9b9a8b-31b7-46c8-8b03-0ac41cda3562}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\工具箱">
+    <Filter Include="源文件\【流程】">
+      <UniqueIdentifier>{2cf7a56b-0fe0-469e-a11d-88742f07322e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\【主窗口】">
+      <UniqueIdentifier>{7e71b920-6dd4-4586-91bd-abf08770533e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\【工具箱 Utils】">
       <UniqueIdentifier>{49496933-dc6d-4c41-a7a6-56a2a9ca4855}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\工具箱\管理器工具（manager）">
+    <Filter Include="源文件\【工具箱 Utils】\管理器工具（manager）">
       <UniqueIdentifier>{95725186-2c84-4654-b483-334abb41674d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\工具箱\通用工具（common）">
+    <Filter Include="源文件\【工具箱 Utils】\管理器工具（manager）\文本解析">
+      <UniqueIdentifier>{84cfea9d-b125-4ecd-915a-be9ef9f00acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\【工具箱 Utils】\通用工具（common）">
       <UniqueIdentifier>{ffabf330-b920-4a92-bf07-5e8b87e3c387}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\工具箱\集合组件（widget）">
+    <Filter Include="源文件\【工具箱 Utils】\集合组件（widget）">
       <UniqueIdentifier>{3ac9088a-6a63-44fd-80b5-de7a12f2e9cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\工具箱\集合组件（widget）\快速表单">
+    <Filter Include="源文件\【工具箱 Utils】\集合组件（widget）\快速表单">
       <UniqueIdentifier>{eaf15544-8781-4888-972e-502a201859c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\工具箱\集合组件（widget）\快速窗口">
+    <Filter Include="源文件\【工具箱 Utils】\集合组件（widget）\快速窗口">
       <UniqueIdentifier>{14b7e1ab-b7af-43b9-a914-fa9ad6738fca}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\工具箱\管理器工具（manager）\文本解析">
-      <UniqueIdentifier>{84cfea9d-b125-4ecd-915a-be9ef9f00acf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Source\DrillLengthEditor.cpp">
-      <Filter>Source Files\主窗口</Filter>
+      <Filter>源文件\【主窗口】</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_DrillLengthEditor.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -82,16 +82,16 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Source\s_LengthScanner.cpp">
-      <Filter>Source Files\核心</Filter>
+      <Filter>源文件\【核心】</Filter>
     </ClCompile>
     <ClCompile Include="Source\c_LEConfigData.cpp">
-      <Filter>Source Files\核心</Filter>
+      <Filter>源文件\【核心】</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utils\common\TTool.cpp">
-      <Filter>Source Files\工具箱\通用工具（common）</Filter>
+      <Filter>源文件\【工具箱 Utils】\通用工具（common）</Filter>
     </ClCompile>
     <ClCompile Include="Source\s_LengthFlowManager.cpp">
-      <Filter>Source Files\流程</Filter>
+      <Filter>源文件\【流程】</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_s_LengthFlowManager.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -100,10 +100,10 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utils\widget\fastForm\c_FastClass.cpp">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速表单</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速表单</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utils\widget\fastForm\p_FastForm.cpp">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速表单</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速表单</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_p_FastForm.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -112,7 +112,7 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utils\widget\fastWindow\w_FastListWindow.cpp">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速窗口</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速窗口</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_w_FastListWindow.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -121,7 +121,7 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utils\widget\fastWindow\w_FastWindow.cpp">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速窗口</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速窗口</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_w_FastWindow.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -136,13 +136,13 @@
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Source\w_TipWaitBox.cpp">
-      <Filter>Source Files\流程</Filter>
+      <Filter>源文件\【流程】</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utils\manager\txtRead\p_TxtFastReader.cpp">
-      <Filter>Source Files\工具箱\管理器工具（manager）\文本解析</Filter>
+      <Filter>源文件\【工具箱 Utils】\管理器工具（manager）\文本解析</Filter>
     </ClCompile>
     <ClCompile Include="Source\Utils\manager\txtRead\s_TxtReadingManager.cpp">
-      <Filter>Source Files\工具箱\管理器工具（manager）\文本解析</Filter>
+      <Filter>源文件\【工具箱 Utils】\管理器工具（manager）\文本解析</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_s_TxtReadingManager.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -153,19 +153,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>Source Files</Filter>
+      <Filter>源文件</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_DrillLengthEditor.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\c_LEConfigData.h">
-      <Filter>Source Files\核心</Filter>
+      <Filter>源文件\【核心】</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utils\common\TTool.h">
-      <Filter>Source Files\工具箱\通用工具（common）</Filter>
+      <Filter>源文件\【工具箱 Utils】\通用工具（common）</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utils\widget\fastForm\c_FastClass.h">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速表单</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速表单</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_w_FastListWindow.h">
       <Filter>Generated Files</Filter>
@@ -177,48 +177,48 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Utils\manager\txtRead\p_TxtFastReader.h">
-      <Filter>Source Files\工具箱\管理器工具（manager）\文本解析</Filter>
+      <Filter>源文件\【工具箱 Utils】\管理器工具（manager）\文本解析</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Source\DrillLengthEditor.h">
-      <Filter>Source Files\主窗口</Filter>
+      <Filter>源文件\【主窗口】</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\DrillLengthEditor.ui">
-      <Filter>Source Files\主窗口</Filter>
+      <Filter>源文件\【主窗口】</Filter>
     </CustomBuild>
     <CustomBuild Include="drillLengthEditor.qrc">
-      <Filter>Resource Files</Filter>
+      <Filter>资源文件</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\s_LengthScanner.h">
-      <Filter>Source Files\核心</Filter>
+      <Filter>源文件\【核心】</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\s_LengthFlowManager.h">
-      <Filter>Source Files\流程</Filter>
+      <Filter>源文件\【流程】</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\Utils\widget\fastForm\p_FastForm.h">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速表单</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速表单</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\Utils\widget\fastWindow\w_FastListWindow.h">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速窗口</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速窗口</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\Utils\widget\fastWindow\w_FastListWindow.ui">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速窗口</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速窗口</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\Utils\widget\fastWindow\w_FastWindow.h">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速窗口</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速窗口</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\Utils\widget\fastWindow\w_FastWindow.ui">
-      <Filter>Source Files\工具箱\集合组件（widget）\快速窗口</Filter>
+      <Filter>源文件\【工具箱 Utils】\集合组件（widget）\快速窗口</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\w_TipWaitBox.ui">
-      <Filter>Source Files\流程</Filter>
+      <Filter>源文件\【流程】</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\w_TipWaitBox.h">
-      <Filter>Source Files\流程</Filter>
+      <Filter>源文件\【流程】</Filter>
     </CustomBuild>
     <CustomBuild Include="Source\Utils\manager\txtRead\s_TxtReadingManager.h">
-      <Filter>Source Files\工具箱\管理器工具（manager）\文本解析</Filter>
+      <Filter>源文件\【工具箱 Utils】\管理器工具（manager）\文本解析</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -226,12 +226,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Source\目标功能.txt">
-      <Filter>Source Files\主窗口</Filter>
+      <Filter>源文件\【主窗口】</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\最大值识别结构.vsdx">
-      <Filter>Source Files\核心</Filter>
+      <Filter>源文件\【核心】</Filter>
     </None>
   </ItemGroup>
 </Project>
