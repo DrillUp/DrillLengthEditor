@@ -1,6 +1,6 @@
 #include "stdafx.h"
-
 #include "w_TipWaitBox.h"
+
 #include <QtWidgets>
 
 /*

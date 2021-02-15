@@ -1,11 +1,5 @@
 #include "stdafx.h"
-#include "s_LengthScanner.h"
-
-#include <QDir>
-#include <QFile>
-#include <QMessageBox>
-#include <QTextStream>
-#pragma execution_character_set("utf-8")
+#include "s_LEConfigWriter.h"
 
 
 /*
@@ -26,170 +20,29 @@
 -----==========================================================-----
 */
 
-S_LengthScanner::S_LengthScanner() : QObject(){
+S_LEConfigWriter::S_LEConfigWriter() : QObject(){
 	init();
 }
-S_LengthScanner::~S_LengthScanner() {
+S_LEConfigWriter::~S_LEConfigWriter() {
 }
 /*  - - 单例 - - */
-S_LengthScanner* S_LengthScanner::cur_manager = NULL;
-S_LengthScanner* S_LengthScanner::getInstance() {
+S_LEConfigWriter* S_LEConfigWriter::cur_manager = NULL;
+S_LEConfigWriter* S_LEConfigWriter::getInstance() {
 	if (cur_manager == NULL) {
-		cur_manager = new S_LengthScanner();
+		cur_manager = new S_LEConfigWriter();
 	}
 	return cur_manager;
 }
 /*  - - 初始化 - - */
-void S_LengthScanner::init() {
+void S_LEConfigWriter::init() {
 
-}
-
-/*-------------------------------------------------
-		扫描 - 获取参数 + 最大值
-*/
-C_LEPlugin* S_LengthScanner::doScanPlugin(QString file_name){
-	C_LEPlugin* result = new C_LEPlugin();
-	result->pluginName = QFileInfo(file_name).fileName();	//xxxx.js
-	result->fullPath = QFileInfo(file_name).absoluteFilePath();
-
-	// > 文件来源
-	QFile file_from(file_name);	
-	if (!file_from.open(QFile::ReadOnly)){
-		QMessageBox message(QMessageBox::Critical, ("错误"), ("无法打开文件" + file_name ));
-		message.exec();
-		return result;
-	}
-	result->context = file_from.readAll();
-	file_from.close();
-
-	// > 扫描器准备
-	P_TxtFastReader reader = P_TxtFastReader(result->context);
-	reader.prepare_trimAllRows();
-	reader.prepare_replaceInStrings(QRegExp("( \\* )|( \\*)|(\\* )|(/\\*:)|(/\\*:ja)"), "");	//预备去掉注释
-
-	// > 获取插件简介
-	int i_desc = reader.d_indexOf("@plugindesc", 0);
-	if (i_desc != -1){
-		QString desc_data = reader.d_rowAt(i_desc);
-		result->pluginDesc = desc_data.replace("@plugindesc", "").trimmed();
-	}
-
-	// > 获取插件作者
-	int i_author = reader.d_indexOf("@author", 0);
-	if (i_author != -1){
-		QString author_data = reader.d_rowAt(i_author);
-		result->pluginAuthor = author_data.replace("@author", "").trimmed();
-	}
-
-	// > 禁用情况检查
-	if (result->context.indexOf("@Drill_LE_editForbidden") != -1){
-		result->paramForbidden = true;
-		return result;
-	}
-
-	// > 获取插件参数
-	int length = reader.d_rowCount();
-	QList<int> index_list = reader.d_getAllRowIndexsContains("@Drill_LE_param");
-	for (int i = 0; i < index_list.length(); i++){
-		int i_param = index_list.at(i);
-		QString aaa = reader.d_rowAt(i_param + 1);
-		QString bbb = reader.d_rowAt(i_param + 2);
-		if (!reader.d_rowAt(i_param + 1).contains("@Drill_LE_parentKey")){ continue; }
-		if (!reader.d_rowAt(i_param + 2).contains("@Drill_LE_var")){ continue; }
-
-		// > 获取字符串（会去掉引号）
-		QString s_param = reader.d_rowAt(i_param).replace("@Drill_LE_param", "");
-		QString s_parentKey = reader.d_rowAt(i_param + 1).replace("@Drill_LE_parentKey", "");
-		QString s_var = reader.d_rowAt(i_param + 2).replace("@Drill_LE_var", "");
-		s_param = s_param.trimmed().replace("\"", "");
-		s_parentKey = s_parentKey.trimmed().replace("\"", "");
-		s_var = s_var.trimmed().replace("\"", "");
-
-		// > 加入组
-		C_LEPluginParam c_p = C_LEPluginParam();
-		c_p.initParam(s_param, s_parentKey, s_var);
-		result->paramList.push_back(c_p);
-	}
-
-	// > 获取参数最大值
-	this->refreshScanPluginLenth(result);
-
-	return result;
-}
-/*-------------------------------------------------
-		扫描 - 刷新参数最大值
-*/
-void S_LengthScanner::refreshScanPluginLenth(C_LEPlugin* plugin){
-
-	// > 扫描器准备
-	QString context = plugin->context;
-	P_TxtFastReader reader = P_TxtFastReader(context);
-	reader.prepare_trimAllRows();
-	reader.prepare_replaceInStrings(QRegExp("( \\* )|( \\*)|(\\* )|(/\\*:)|(/\\*:ja)"), "");	//此行的去掉注释
-
-	// > 获取 - 变量最大值
-	for (int i = 0; i < plugin->paramList.count(); i++){
-		C_LEPluginParam pluginParam = plugin->paramList.at(i);
-		QString var_str = pluginParam.getVarName();
-		if (var_str == "" || var_str == "null"){ break; }
-
-		QString re_str = var_str.replace(".", "\\.");		//防止误识别正则
-		QRegExp re = QRegExp(re_str + "[ ]*=[^=]*");
-		int i_var = context.indexOf(re, 0);
-		int i_varEnd = context.indexOf("\n", i_var);
-		if (i_var == -1){ continue; }
-		if (i_varEnd == -1){ continue; }
-
-		// > 变量值获取
-		QString data = context.mid(i_var, i_varEnd - i_var);
-		QStringList dataList = data.split("=");
-		if (dataList.count() == 0){ continue; }
-		int var_length = TTool::_to_int_(dataList.at(1));	//榨取等号后面的int值
-
-		pluginParam.setVarLen(var_length);
-		plugin->paramList.replace(i, pluginParam);
-	}
-
-	// > 搜索 - 实际最大值
-	for (int i = 0; i < plugin->paramList.count(); i++){
-		C_LEPluginParam pluginParam = plugin->paramList.at(i);
-
-		int real_length = 0; 
-		QStringList param_names = reader.d_getAllRowsContains("@param");
-		for (int j = 0; j < param_names.count(); j++){
-			QString name = param_names.at(j);
-			name = name.replace("@param", "").trimmed();
-			
-			QString match_str = pluginParam.getParamName(real_length + 1);
-			if (match_str == name){
-				real_length += 1;
-			}
-		}
-
-		pluginParam.setRealLen(real_length);
-		plugin->paramList.replace(i, pluginParam);
-	}
-
-}
-
-/*-------------------------------------------------
-		扫描 - 插件是否存在"xxx-10"序列格式
-*/
-bool S_LengthScanner::isPluginIncludedLengthParam(QString context){
-
-	// > 扫描器准备
-	P_TxtFastReader reader = P_TxtFastReader(context);
-	
-	// > 实际变量依次搜索
-	QStringList param_names = reader.d_getAllRowsContains(QRegExp("@param[ ]+.*-[0123456789]+"));
-	return param_names.count() >= 4;
 }
 
 
 /*-------------------------------------------------
 		覆写 - 最大值修改
 */
-QString S_LengthScanner::doOverwritePlugin(QString context, C_LEPluginParam param, C_LEConfigData config){
+QString S_LEConfigWriter::doOverwritePlugin(QString context, C_LEAnnotation_Param param, C_LEConfigData config){
 	
 	// > 最大值检查
 	if (config.getConfigLen() <= -1 ){
@@ -381,7 +234,7 @@ QString S_LengthScanner::doOverwritePlugin(QString context, C_LEPluginParam para
 /*-------------------------------------------------
 		覆写 - 根据 "阶段-1" 获取到 "@param 阶段-1" 的全部参数字符串
 */
-QStringList S_LengthScanner::getParamStringList(QStringList contextList,QRegExp re){
+QStringList S_LEConfigWriter::getParamStringList(QStringList contextList,QRegExp re){
 	QStringList result_list = QStringList();
 	bool finded = false;
 	for (int i = 0; i < contextList.count(); i++){

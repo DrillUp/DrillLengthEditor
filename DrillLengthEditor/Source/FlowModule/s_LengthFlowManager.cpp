@@ -1,15 +1,12 @@
 #include "stdafx.h"
 #include "S_LengthFlowManager.h"
-#include "S_LengthScanner.h"
 
-#include <QDir>
-#include <QFile>
-#include <QMessageBox>
-#include <QTextStream>
+#include "Source/PluginModule/lengthEditor/s_LEAnnotationReader.h"
+#include "Source/PluginModule/lengthEditor/s_LEConfigWriter.h"
 #include "W_TipWaitBox.h"
-#include "Utils/widget/fastForm/c_FastClass.h"
-#include "Utils/widget/fastWindow/w_FastWindow.h"
-#pragma execution_character_set("utf-8")
+
+#include "Source/Utils/widget/fastForm/c_FastClass.h"
+#include "Source/Utils/widget/fastWindow/w_FastWindow.h"
 
 
 /*
@@ -61,7 +58,7 @@ void S_LengthFlowManager::init() {
 */
 bool S_LengthFlowManager::openSingle(QString file_name){
 	
-	this->m_single_plugin = S_LengthScanner::getInstance()->doScanPlugin(file_name);
+	this->m_single_plugin = S_LEAnnotationReader::getInstance()->readPlugin(QFileInfo(file_name));
 
 	// > 插件检查
 	QStringList temp_list = QStringList();
@@ -72,7 +69,7 @@ bool S_LengthFlowManager::openSingle(QString file_name){
 	}
 	if (m_single_plugin->isEditable() == false){
 		temp_list.push_back("未找到该插件的最大值。");
-		if (S_LengthScanner::getInstance()->isPluginIncludedLengthParam(m_single_plugin->context)){		//存在"xxx-10"的插件
+		if (S_LEAnnotationReader::getInstance()->isPluginIncludedLengthParam(m_single_plugin->context)){		//存在"xxx-10"的插件
 			temp_list.push_back("插件的版本可能比较旧。");
 		}
 		this->m_single_plugin->message = temp_list.join("\n");
@@ -86,9 +83,9 @@ bool S_LengthFlowManager::openSingle(QString file_name){
 	
 	// > 获取插件参数信息
 	QString paramMsg = "";
-	QList<C_LEPluginParam> params = m_single_plugin->paramList;
+	QList<C_LEAnnotation_Param> params = m_single_plugin->paramList;
 	for (int i = 0; i < params.count(); i++){
-		C_LEPluginParam param = params.at(i);
+		C_LEAnnotation_Param param = params.at(i);
 		paramMsg += param.getParamShowingName() + "【" + QString::number(param.getRealLen()) + "】";
 		if (i != params.count()-1 ){
 			paramMsg += ",";
@@ -101,7 +98,7 @@ bool S_LengthFlowManager::openSingle(QString file_name){
 /*-------------------------------------------------
 		单文件 - 获取打开后的插件数据
 */
-C_LEPlugin* S_LengthFlowManager::getLastSinglePlugin(){
+C_LEAnnotation* S_LengthFlowManager::getLastSinglePlugin(){
 	return m_single_plugin;
 }
 /*-------------------------------------------------
@@ -116,9 +113,9 @@ void S_LengthFlowManager::editSingle(){
 	this->m_single_data = QList<C_LEConfigData>();
 
 	// > 填入配置
-	QList<C_LEPluginParam> params = m_single_plugin->paramList;
+	QList<C_LEAnnotation_Param> params = m_single_plugin->paramList;
 	for (int i = 0; i < params.count(); i++){
-		C_LEPluginParam param = params.at(i);
+		C_LEAnnotation_Param param = params.at(i);
 
 		QString name_p = m_single_plugin->pluginName;
 		QString name_c = param.getParamKey();
@@ -153,9 +150,9 @@ void S_LengthFlowManager::executeSingle(){
 	// > 数据修改
 	for (int i = 0; i < m_single_data.count();i++){
 		C_LEConfigData config = m_single_data.at(i);
-		C_LEPluginParam param = m_single_plugin->getParamByKey(config.getParamKey());
+		C_LEAnnotation_Param param = m_single_plugin->getParamByKey(config.getParamKey());
 
-		QString context = S_LengthScanner::getInstance()->doOverwritePlugin(m_single_plugin->context, param, config);
+		QString context = S_LEConfigWriter::getInstance()->doOverwritePlugin(m_single_plugin->context, param, config);
 		if (context == ""){ return; }
 		m_single_plugin->context = context;
 	}
@@ -197,7 +194,7 @@ void S_LengthFlowManager::openBatch(QString dir_name){
 		QFileInfo info = d_list.at(i);
 		if (info.suffix() != "js"){ continue; }
 		
-		C_LEPlugin* plugin = this->openBatchOne(info.filePath());
+		C_LEAnnotation* plugin = this->openBatchOne(info.filePath());
 		this->m_batch_pluginList.push_back(plugin);
 	}
 	waitBox.hide();
@@ -206,9 +203,9 @@ void S_LengthFlowManager::openBatch(QString dir_name){
 /*-------------------------------------------------
 		批量文件 - 打开一个文件
 */
-C_LEPlugin* S_LengthFlowManager::openBatchOne(QString file_name){
+C_LEAnnotation* S_LengthFlowManager::openBatchOne(QString file_name){
 
-	C_LEPlugin* plugin = S_LengthScanner::getInstance()->doScanPlugin(file_name);
+	C_LEAnnotation* plugin = S_LEAnnotationReader::getInstance()->readPlugin(QFileInfo(file_name));
 
 	// > 插件检查
 	QStringList temp_list = QStringList();
@@ -219,7 +216,7 @@ C_LEPlugin* S_LengthFlowManager::openBatchOne(QString file_name){
 	}
 	if (plugin->isEditable() == false){
 		temp_list.push_back("未找到该插件的最大值。");
-		if (S_LengthScanner::getInstance()->isPluginIncludedLengthParam(plugin->context)){		//存在"xxx-10"的插件
+		if (S_LEAnnotationReader::getInstance()->isPluginIncludedLengthParam(plugin->context)){		//存在"xxx-10"的插件
 			temp_list.push_back("插件的版本可能比较旧。");
 		}
 		plugin->message = temp_list.join("\n");
@@ -233,9 +230,9 @@ C_LEPlugin* S_LengthFlowManager::openBatchOne(QString file_name){
 
 	// > 获取插件参数信息
 	QString paramMsg = "";
-	QList<C_LEPluginParam> params = plugin->paramList;
+	QList<C_LEAnnotation_Param> params = plugin->paramList;
 	for (int j = 0; j < params.count(); j++){
-		C_LEPluginParam param = params.at(j);
+		C_LEAnnotation_Param param = params.at(j);
 		paramMsg += param.getParamShowingName() + "【" + QString::number(param.getRealLen()) + "】";
 		if (j != params.count() - 1){
 			paramMsg += ",";
@@ -249,21 +246,21 @@ C_LEPlugin* S_LengthFlowManager::openBatchOne(QString file_name){
 /*-------------------------------------------------
 		批量文件 - 获取打开后的插件数据
 */
-QList<C_LEPlugin*> S_LengthFlowManager::getLastBatchPlugin(){
+QList<C_LEAnnotation*> S_LengthFlowManager::getLastBatchPlugin(){
 	return m_batch_pluginList;
 }
 /*-------------------------------------------------
 		批量文件 - 编辑插件
 */
-void S_LengthFlowManager::editBatchOne(C_LEPlugin* plugin){
+void S_LengthFlowManager::editBatchOne(C_LEAnnotation* plugin){
 	if (!plugin->message.contains("【")){ return; }
 	
 	QJsonObject obj = this->editOneWithWindow(plugin, this->getBatchConfigDataByPlugin(plugin));
 	if (obj.empty()){ return; }
 
-	QList<C_LEPluginParam> params = plugin->paramList;
+	QList<C_LEAnnotation_Param> params = plugin->paramList;
 	for (int i = 0; i < params.count(); i++){
-		C_LEPluginParam param = params.at(i);
+		C_LEAnnotation_Param param = params.at(i);
 
 		QString name_p = plugin->pluginName;
 		QString name_c = param.getParamKey();
@@ -288,16 +285,16 @@ void S_LengthFlowManager::executeBatch(){
 	W_TipWaitBox waitBox("插件修改中...");
 	waitBox.show();
 	for (int i = 0; i < m_batch_pluginList.count(); i++){
-		C_LEPlugin* plugin = m_batch_pluginList.at(i);
+		C_LEAnnotation* plugin = m_batch_pluginList.at(i);
 		QList<C_LEConfigData> config_list = this->getBatchConfigDataByPlugin(plugin);
 		if (config_list.count() == 0){ continue; }
 
 		// > 数据修改
 		for (int j = 0; j < config_list.count(); j++){
 			C_LEConfigData config = config_list.at(j);
-			C_LEPluginParam param = plugin->getParamByKey(config.getParamKey());
+			C_LEAnnotation_Param param = plugin->getParamByKey(config.getParamKey());
 
-			QString context = S_LengthScanner::getInstance()->doOverwritePlugin(plugin->context, param, config);
+			QString context = S_LEConfigWriter::getInstance()->doOverwritePlugin(plugin->context, param, config);
 			if (context == ""){ break; }
 			plugin->context = context;
 		}
@@ -438,7 +435,7 @@ void S_LengthFlowManager::exportConfig(){
 /*-------------------------------------------------
 		批量文件 - 打开窗口编辑插件
 */
-QJsonObject S_LengthFlowManager::editOneWithWindow(C_LEPlugin* plugin, QList<C_LEConfigData> data_list){
+QJsonObject S_LengthFlowManager::editOneWithWindow(C_LEAnnotation* plugin, QList<C_LEConfigData> data_list){
 	if (plugin->isNull()){ return QJsonObject(); }
 
 	// > 窗口类准备
@@ -454,9 +451,9 @@ QJsonObject S_LengthFlowManager::editOneWithWindow(C_LEPlugin* plugin, QList<C_L
 	//temp_class.setParamShowingName("插件作者", "作者");
 	//temp_class.setParamEditable("插件作者", false);
 	//data_class.addFastClassQWidget(temp_class);
-	QList<C_LEPluginParam> params = plugin->paramList;
+	QList<C_LEAnnotation_Param> params = plugin->paramList;
 	for (int i = 0; i < params.count(); i++){
-		C_LEPluginParam param = params.at(i);
+		C_LEAnnotation_Param param = params.at(i);
 
 		// > 默认值
 		QString name_p = plugin->pluginName;
@@ -493,14 +490,14 @@ QJsonObject S_LengthFlowManager::editOneWithWindow(C_LEPlugin* plugin, QList<C_L
 /*-------------------------------------------------
 		批量文件 - 根据配置获取到插件
 */
-QList<C_LEConfigData> S_LengthFlowManager::getBatchConfigDataByPlugin(C_LEPlugin* plugin){
+QList<C_LEConfigData> S_LengthFlowManager::getBatchConfigDataByPlugin(C_LEAnnotation* plugin){
 	QList<C_LEConfigData> result_list = QList<C_LEConfigData>();
 	for (int i = 0; i < this->m_batch_dataList.count(); i++){
 		C_LEConfigData data = this->m_batch_dataList.at(i);
 		if (data.getPluginName() == plugin->pluginName){
 
 			for (int j = 0; j < plugin->paramList.count(); j++){
-				C_LEPluginParam param = plugin->paramList.at(j);
+				C_LEAnnotation_Param param = plugin->paramList.at(j);
 				if (data.getParamKey() == param.getParamKey()){
 					result_list.push_back(data);
 					break;
@@ -515,7 +512,7 @@ QList<C_LEConfigData> S_LengthFlowManager::getBatchConfigDataByPlugin(C_LEPlugin
 */
 void S_LengthFlowManager::refreshBatchEditMessage(){
 	for (int i = 0; i < m_batch_pluginList.count(); i++){
-		C_LEPlugin* plugin = m_batch_pluginList.at(i);
+		C_LEAnnotation* plugin = m_batch_pluginList.at(i);
 		QList<C_LEConfigData> data_list = this->getBatchConfigDataByPlugin(plugin);
 		if (data_list.count() == 0){ continue; }
 

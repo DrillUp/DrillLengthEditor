@@ -2,7 +2,8 @@
 
 #include <QWidget>
 #include <QSet>
-#include "c_LEConfigData.h"
+#include "Source/PluginModule/lengthEditor/c_LEAnnotation.h"
+#include "Source/PluginModule/lengthEditor/c_LEConfigData.h"
 
 /*
 -----==========================================================-----
@@ -27,13 +28,13 @@ class S_LengthFlowManager : public QObject
 	//-----------------------------------
 	//----单文件
 	private:
-		C_LEPlugin* m_single_plugin;			//插件信息（只读）
+		C_LEAnnotation* m_single_plugin;			//插件信息（只读）
 		QList<C_LEConfigData> m_single_data;	//配置参数（临时）
 	public:
 												//单文件 - 打开单文件（返回成功情况）
 		bool openSingle(QString file_name);
 												//单文件 - 获取打开后的插件数据
-		C_LEPlugin* getLastSinglePlugin();
+		C_LEAnnotation* getLastSinglePlugin();
 												//单文件 - 编辑插件
 		void editSingle();
 												//单文件 - 执行修改
@@ -43,21 +44,21 @@ class S_LengthFlowManager : public QObject
 	//-----------------------------------
 	//----批量文件
 	private:
-		QList<C_LEPlugin*> m_batch_pluginList;		//插件信息（只读）
+		QList<C_LEAnnotation*> m_batch_pluginList;		//插件信息（只读）
 		QList<C_LEConfigData> m_batch_dataList;		//配置参数（临时）
 		QList<C_LEConfigData> m_batch_storageList;	//配置参数（存储，只用来导出）
 	public:
 												//批量文件 - 打开文件夹
 		void openBatch(QString dir_name);
 												//批量文件 - 获取打开后的插件数据
-		QList<C_LEPlugin*> getLastBatchPlugin();
+		QList<C_LEAnnotation*> getLastBatchPlugin();
 												//批量文件 - 编辑插件
-		void editBatchOne( C_LEPlugin* plugin );
+		void editBatchOne( C_LEAnnotation* plugin );
 												//批量文件 - 执行修改
 		void executeBatch();
 	private:
 												//批量文件 - 打开一个插件
-		C_LEPlugin* openBatchOne(QString file_name);
+		C_LEAnnotation* openBatchOne(QString file_name);
 		
 	public:
 												//批量文件 - 导入配置
@@ -67,9 +68,9 @@ class S_LengthFlowManager : public QObject
 
 	private:
 												//批量文件 - 打开窗口编辑插件
-		QJsonObject editOneWithWindow(C_LEPlugin* plugin, QList<C_LEConfigData> data);
+		QJsonObject editOneWithWindow(C_LEAnnotation* plugin, QList<C_LEConfigData> data);
 												//批量文件 - 根据配置获取到插件
-		QList<C_LEConfigData> getBatchConfigDataByPlugin(C_LEPlugin* plugin);
+		QList<C_LEConfigData> getBatchConfigDataByPlugin(C_LEAnnotation* plugin);
 												//批量文件 - 刷新编辑信息
 		void refreshBatchEditMessage();
 		

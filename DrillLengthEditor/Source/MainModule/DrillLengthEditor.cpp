@@ -1,9 +1,7 @@
 #include "stdafx.h"
-
 #include "DrillLengthEditor.h"
-#include "s_LengthFlowManager.h"
 
-#pragma execution_character_set("utf-8")
+#include "Source/FlowModule/s_LengthFlowManager.h"
 
 DrillLengthEditor::DrillLengthEditor(QWidget *parent)
 	: QMainWindow(parent)
@@ -96,7 +94,7 @@ void DrillLengthEditor::openSingleFile() {
 	this->m_open_successed = S_LengthFlowManager::getInstance()->openSingle(m_single_filePath);
 
 	// > 严重错误 - 读取失败
-	C_LEPlugin* p = S_LengthFlowManager::getInstance()->getLastSinglePlugin();
+	C_LEAnnotation* p = S_LengthFlowManager::getInstance()->getLastSinglePlugin();
 	if (p->isNull()){
 		QMessageBox::warning(this, "错误", "插件读取失败。", QMessageBox::Yes);
 	}
@@ -115,7 +113,7 @@ void DrillLengthEditor::openSingleParamEdit(){
 		单文件 - 重刷ui
 */
 void DrillLengthEditor::refreshSingleUi(){
-	C_LEPlugin* p = S_LengthFlowManager::getInstance()->getLastSinglePlugin();
+	C_LEAnnotation* p = S_LengthFlowManager::getInstance()->getLastSinglePlugin();
 
 	ui.lineEdit_s_pluginName->setText(p->pluginName);
 	ui.lineEdit_s_pluginDesc->setText(p->pluginDesc);
@@ -212,7 +210,7 @@ void DrillLengthEditor::openBatchParamOneEdit(){
 	int index = ui.tableWidget_b->item(pos, 0)->toolTip().toInt();
 
 	// > 打开插件
-	QList<C_LEPlugin*> p_list = S_LengthFlowManager::getInstance()->getLastBatchPlugin();
+	QList<C_LEAnnotation*> p_list = S_LengthFlowManager::getInstance()->getLastBatchPlugin();
 	S_LengthFlowManager::getInstance()->editBatchOne(p_list.at(index));
 
 	this->refreshBatchUi();
@@ -225,13 +223,13 @@ void DrillLengthEditor::refreshBatchUi(){
 	// > 文件夹路径信息
 	ui.lineEdit_b_dir->setText(m_batch_dirPath);
 
-	QList<C_LEPlugin*> p_list = S_LengthFlowManager::getInstance()->getLastBatchPlugin();
+	QList<C_LEAnnotation*> p_list = S_LengthFlowManager::getInstance()->getLastBatchPlugin();
 
 	// > 表格信息
 	int row_count = 0;
 	ui.tableWidget_b->setRowCount(p_list.size());
 	for (int i = 0; i < p_list.size(); i++) {
-		C_LEPlugin* p = p_list.at(i);
+		C_LEAnnotation* p = p_list.at(i);
 		if (this->m_isHideUneditableFile == true){
 			if (p->message.contains("【") == false){ continue; }
 		}
