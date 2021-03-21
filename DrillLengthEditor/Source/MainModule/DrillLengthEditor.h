@@ -11,6 +11,9 @@ class DrillLengthEditor : public QMainWindow
 	public:
 		DrillLengthEditor(QWidget *parent = 0);
 		~DrillLengthEditor();
+		static DrillLengthEditor* cur_instance;		//单例
+		static DrillLengthEditor* getInstance();	//单例，获取自己
+		void _init();								//初始化
 
 	//-----------------------------------
 	//----步骤
@@ -18,6 +21,7 @@ class DrillLengthEditor : public QMainWindow
 		void toStepBatch();
 		void toStepSingle();
 		void openWord();
+		void openAbout();
 
 	//-----------------------------------
 	//----单文件修改

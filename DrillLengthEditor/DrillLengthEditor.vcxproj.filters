@@ -70,6 +70,9 @@
     <Filter Include="源文件\【 插件模块 PluginModule】\最大值编辑器\修改器">
       <UniqueIdentifier>{4e8d4406-2aec-4465-862d-7b3c7474e10a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\【 主窗体 MainModule】\关于">
+      <UniqueIdentifier>{c505fdb5-4e1b-4701-8f47-285a046d1e83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -177,6 +180,15 @@
     <ClCompile Include="Source\PluginModule\lengthEditor\s_LEConfigWriter.cpp">
       <Filter>源文件\【 插件模块 PluginModule】\最大值编辑器\修改器</Filter>
     </ClCompile>
+    <ClCompile Include="Source\MainModule\about\w_SoftwareAbout.cpp">
+      <Filter>源文件\【 主窗体 MainModule】\关于</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_w_SoftwareAbout.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_w_SoftwareAbout.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\common\TTool.h">
@@ -208,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="Source\PluginModule\lengthEditor\c_LEConfigData.h">
       <Filter>源文件\【 插件模块 PluginModule】\最大值编辑器\修改器</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_w_SoftwareAbout.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -252,6 +267,12 @@
     </CustomBuild>
     <CustomBuild Include="Source\PluginModule\lengthEditor\s_LEConfigWriter.h">
       <Filter>源文件\【 插件模块 PluginModule】\最大值编辑器\修改器</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source\MainModule\about\w_SoftwareAbout.h">
+      <Filter>源文件\【 主窗体 MainModule】\关于</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source\MainModule\about\w_SoftwareAbout.ui">
+      <Filter>源文件\【 主窗体 MainModule】\关于</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

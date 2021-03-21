@@ -1,6 +1,14 @@
 <RCC>
-    <qresource prefix="/DrillLengthEditor">
-        <file>Resources/小爱丽丝1.png</file>
-        <file>Resources/小爱丽丝2.png</file>
-    </qresource>
+  <qresource prefix="/DrillLengthEditor">
+    <file>Resources/icons/nav/Run.png</file>
+    <file>Resources/icons/nav/About.png</file>
+    <file>Resources/icons/nav/Help.png</file>
+    <file>Resources/icons/nav/Open.png</file>
+    <file>Resources/icons/menu/Common_Edit.png</file>
+    <file>Resources/icons/menu/Common_Export.png</file>
+    <file>Resources/icons/menu/Common_Import .png</file>
+    <file>Resources/icons/menu/Common_New.png</file>
+    <file>Resources/icons/global/drill_logo_64x64.png</file>
+    <file>Resources/icons/global/drill_logo_200x200.png</file>
+  </qresource>
 </RCC>

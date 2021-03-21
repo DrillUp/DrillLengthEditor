@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>994</width>
-    <height>535</height>
+    <width>960</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,8 +28,8 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="icon">
-        <iconset resource="../drillLengthEditor.qrc">
-         <normaloff>:/DrillLengthEditor/Resources/小爱丽丝1.png</normaloff>:/DrillLengthEditor/Resources/小爱丽丝1.png</iconset>
+        <iconset resource="../../drillLengthEditor.qrc">
+         <normaloff>:/DrillLengthEditor/Resources/icons/nav/Help.png</normaloff>:/DrillLengthEditor/Resources/icons/nav/Help.png</iconset>
        </attribute>
        <attribute name="title">
         <string>功能说明</string>
@@ -46,7 +46,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_batchEdit">
+         <widget class="QToolButton" name="toolButton_batchEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -60,12 +60,25 @@
            </size>
           </property>
           <property name="text">
-           <string>批量修改 &gt;</string>
+           <string>  批量修改 &gt;</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../drillLengthEditor.qrc">
+            <normaloff>:/DrillLengthEditor/Resources/icons/nav/Open.png</normaloff>:/DrillLengthEditor/Resources/icons/nav/Open.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_singleEdit">
+         <widget class="QToolButton" name="toolButton_singleEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -79,12 +92,25 @@
            </size>
           </property>
           <property name="text">
-           <string>单文件修改 &gt;</string>
+           <string>  单文件修改 &gt;</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../drillLengthEditor.qrc">
+            <normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_New.png</normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_New.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_openWord">
+         <widget class="QToolButton" name="toolButton_openWord">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -98,7 +124,52 @@
            </size>
           </property>
           <property name="text">
-           <string>文档说明</string>
+           <string>  文档说明</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../drillLengthEditor.qrc">
+            <normaloff>:/DrillLengthEditor/Resources/icons/nav/Help.png</normaloff>:/DrillLengthEditor/Resources/icons/nav/Help.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="toolButton_author">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>180</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>  关于作者</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../drillLengthEditor.qrc">
+            <normaloff>:/DrillLengthEditor/Resources/icons/nav/About.png</normaloff>:/DrillLengthEditor/Resources/icons/nav/About.png</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>24</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="toolButtonStyle">
+           <enum>Qt::ToolButtonTextBesideIcon</enum>
           </property>
          </widget>
         </item>
@@ -119,8 +190,8 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="icon">
-        <iconset resource="../drillLengthEditor.qrc">
-         <normaloff>:/DrillLengthEditor/Resources/小爱丽丝2.png</normaloff>:/DrillLengthEditor/Resources/小爱丽丝2.png</iconset>
+        <iconset resource="../../drillLengthEditor.qrc">
+         <normaloff>:/DrillLengthEditor/Resources/icons/nav/Open.png</normaloff>:/DrillLengthEditor/Resources/icons/nav/Open.png</iconset>
        </attribute>
        <attribute name="title">
         <string>批量修改</string>
@@ -255,13 +326,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="pushButton_b_open">
-                 <property name="text">
-                  <string>浏览</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="label_5">
                  <property name="text">
@@ -273,6 +337,26 @@
                 <widget class="QLabel" name="label_b_fileMessage">
                  <property name="text">
                   <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QToolButton" name="toolButton_b_open">
+                 <property name="text">
+                  <string> 浏览 </string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../drillLengthEditor.qrc">
+                   <normaloff>:/DrillLengthEditor/Resources/icons/nav/Open.png</normaloff>:/DrillLengthEditor/Resources/icons/nav/Open.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>26</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextBesideIcon</enum>
                  </property>
                 </widget>
                </item>
@@ -289,44 +373,6 @@
                <string>插件列表</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_9">
-               <item row="1" column="0">
-                <widget class="QPushButton" name="pushButton_b_export">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>120</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>导出配置</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="pushButton_b_import">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>120</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>导入配置</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="2">
                 <spacer name="horizontalSpacer_11">
                  <property name="orientation">
@@ -383,6 +429,70 @@
                  </column>
                 </widget>
                </item>
+               <item row="1" column="0">
+                <widget class="QToolButton" name="toolButton_b_export">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>120</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string> 导出配置 </string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../drillLengthEditor.qrc">
+                   <normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_Export.png</normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_Export.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>26</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextBesideIcon</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QToolButton" name="toolButton_b_import">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>120</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string> 导入配置 </string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../drillLengthEditor.qrc">
+                   <normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_Import .png</normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_Import .png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>26</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextBesideIcon</enum>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -434,7 +544,7 @@
                 </spacer>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_b_submit">
+                <widget class="QToolButton" name="toolButton_b_submit">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -448,7 +558,20 @@
                   </size>
                  </property>
                  <property name="text">
-                  <string>执行修改</string>
+                  <string> 执行修改 </string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../drillLengthEditor.qrc">
+                   <normaloff>:/DrillLengthEditor/Resources/icons/nav/Run.png</normaloff>:/DrillLengthEditor/Resources/icons/nav/Run.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>32</width>
+                   <height>32</height>
+                  </size>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextBesideIcon</enum>
                  </property>
                 </widget>
                </item>
@@ -463,8 +586,8 @@
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="icon">
-        <iconset resource="../drillLengthEditor.qrc">
-         <normaloff>:/DrillLengthEditor/Resources/小爱丽丝2.png</normaloff>:/DrillLengthEditor/Resources/小爱丽丝2.png</iconset>
+        <iconset resource="../../drillLengthEditor.qrc">
+         <normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_New.png</normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_New.png</iconset>
        </attribute>
        <attribute name="title">
         <string>单文件修改</string>
@@ -598,17 +721,30 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="pushButton_s_openFile">
-                 <property name="text">
-                  <string>选择文件</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="label">
                  <property name="text">
                   <string>文件路径：</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QToolButton" name="toolButton_s_openFile">
+                 <property name="text">
+                  <string> 选择文件 </string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../drillLengthEditor.qrc">
+                   <normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_New.png</normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_New.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>26</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextBesideIcon</enum>
                  </property>
                 </widget>
                </item>
@@ -675,13 +811,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="2">
-                <widget class="QPushButton" name="pushButton_s_editParam">
-                 <property name="text">
-                  <string>编辑</string>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="0">
                 <widget class="QLabel" name="label_10">
                  <property name="text">
@@ -714,6 +843,26 @@
                 <widget class="QLabel" name="label_s_pluginMsg">
                  <property name="text">
                   <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="2">
+                <widget class="QToolButton" name="toolButton_s_editParam">
+                 <property name="text">
+                  <string> 编辑 </string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../drillLengthEditor.qrc">
+                   <normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_Edit.png</normaloff>:/DrillLengthEditor/Resources/icons/menu/Common_Edit.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>26</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextBesideIcon</enum>
                  </property>
                 </widget>
                </item>
@@ -794,7 +943,7 @@
                 </spacer>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_s_submit">
+                <widget class="QToolButton" name="toolButton_s_submit">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -808,7 +957,20 @@
                   </size>
                  </property>
                  <property name="text">
-                  <string>执行修改</string>
+                  <string> 执行修改 </string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../drillLengthEditor.qrc">
+                   <normaloff>:/DrillLengthEditor/Resources/icons/nav/Run.png</normaloff>:/DrillLengthEditor/Resources/icons/nav/Run.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>32</width>
+                   <height>32</height>
+                  </size>
+                 </property>
+                 <property name="toolButtonStyle">
+                  <enum>Qt::ToolButtonTextBesideIcon</enum>
                  </property>
                 </widget>
                </item>
@@ -828,7 +990,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../drillLengthEditor.qrc"/>
+  <include location="../../drillLengthEditor.qrc"/>
  </resources>
  <connections/>
 </ui>

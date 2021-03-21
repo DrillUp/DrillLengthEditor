@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "S_LengthFlowManager.h"
 
+#include "Source/MainModule/DrillLengthEditor.h"
 #include "Source/PluginModule/lengthEditor/s_LEAnnotationReader.h"
 #include "Source/PluginModule/lengthEditor/s_LEConfigWriter.h"
 #include "W_TipWaitBox.h"
@@ -187,7 +188,7 @@ void S_LengthFlowManager::openBatch(QString dir_name){
 
 	// > 文件夹遍历
 	QFileInfoList d_list = dir_from.entryInfoList(QDir::Files | QDir::NoDotAndDotDot);
-	W_TipWaitBox waitBox("插件解析中...");
+	W_TipWaitBox waitBox("插件解析中...",DrillLengthEditor::getInstance());
 	waitBox.show();
 
 	for (int i = 0; i < d_list.count(); i++){
@@ -282,7 +283,7 @@ void S_LengthFlowManager::editBatchOne(C_LEAnnotation* plugin){
 		批量文件 - 执行修改
 */
 void S_LengthFlowManager::executeBatch(){
-	W_TipWaitBox waitBox("插件修改中...");
+	W_TipWaitBox waitBox("插件修改中...", DrillLengthEditor::getInstance());
 	waitBox.show();
 	for (int i = 0; i < m_batch_pluginList.count(); i++){
 		C_LEAnnotation* plugin = m_batch_pluginList.at(i);
@@ -477,7 +478,7 @@ QJsonObject S_LengthFlowManager::editOneWithWindow(C_LEAnnotation* plugin, QList
 
 
 	// > 窗口类数据获取 + 解析
-	W_FastWindow d;
+	W_FastWindow d(DrillLengthEditor::getInstance());
 	d.setDataInAddMode(data_class);
 	d.setWindowTitle("更改最大值");
 	if (d.exec() == QDialog::Accepted) {

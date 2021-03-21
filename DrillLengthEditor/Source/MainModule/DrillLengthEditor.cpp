@@ -1,12 +1,35 @@
 #include "stdafx.h"
 #include "DrillLengthEditor.h"
 
+#include "about/w_SoftwareAbout.h"
 #include "Source/FlowModule/s_LengthFlowManager.h"
 
 DrillLengthEditor::DrillLengthEditor(QWidget *parent)
 	: QMainWindow(parent)
 {
+	DrillLengthEditor::cur_instance = this;
 	ui.setupUi(this);
+	this->_init();
+}
+
+DrillLengthEditor::~DrillLengthEditor()
+{
+
+}
+/*-------------------------------------------------
+		单例
+*/
+DrillLengthEditor* DrillLengthEditor::cur_instance = NULL;
+DrillLengthEditor* DrillLengthEditor::getInstance() {
+	if (cur_instance == NULL) {
+		cur_instance = new DrillLengthEditor(NULL);
+	}
+	return cur_instance;
+}
+/*-------------------------------------------------
+		初始化
+*/
+void DrillLengthEditor::_init() {
 
 	this->m_open_successed = false;
 	this->m_single_filePath = "";
@@ -16,36 +39,32 @@ DrillLengthEditor::DrillLengthEditor(QWidget *parent)
 
 	//-----------------------------------
 	//----事件绑定
-	connect(ui.pushButton_batchEdit, &QPushButton::clicked, this, &DrillLengthEditor::toStepBatch);
-	connect(ui.pushButton_singleEdit, &QPushButton::clicked, this, &DrillLengthEditor::toStepSingle);
-	connect(ui.pushButton_openWord, &QPushButton::clicked, this, &DrillLengthEditor::openWord);
+	connect(ui.toolButton_batchEdit, &QToolButton::clicked, this, &DrillLengthEditor::toStepBatch);
+	connect(ui.toolButton_singleEdit, &QToolButton::clicked, this, &DrillLengthEditor::toStepSingle);
+	connect(ui.toolButton_openWord, &QToolButton::clicked, this, &DrillLengthEditor::openWord);
+	connect(ui.toolButton_author, &QToolButton::clicked, this, &DrillLengthEditor::openAbout);
 
-	connect(ui.pushButton_s_openFile, &QPushButton::clicked, this, &DrillLengthEditor::openSingleFile);
-	connect(ui.pushButton_s_editParam, &QPushButton::clicked, this, &DrillLengthEditor::openSingleParamEdit);
+	connect(ui.toolButton_s_openFile, &QToolButton::clicked, this, &DrillLengthEditor::openSingleFile);
+	connect(ui.toolButton_s_editParam, &QToolButton::clicked, this, &DrillLengthEditor::openSingleParamEdit);
 	connect(ui.pushButton_s_next, &QPushButton::clicked, this, &DrillLengthEditor::toNextSingle);
 	connect(ui.pushButton_s_last, &QPushButton::clicked, this, &DrillLengthEditor::toLastSingle);
-	connect(ui.pushButton_s_submit, &QPushButton::clicked, this, &DrillLengthEditor::submitSingle);
+	connect(ui.toolButton_s_submit, &QToolButton::clicked, this, &DrillLengthEditor::submitSingle);
 
-	connect(ui.pushButton_b_open, &QPushButton::clicked, this, &DrillLengthEditor::openBatchDir);
+	connect(ui.toolButton_b_open, &QToolButton::clicked, this, &DrillLengthEditor::openBatchDir);
 	connect(ui.tableWidget_b, &QTableWidget::doubleClicked, this, &DrillLengthEditor::openBatchParamOneEdit);
 	connect(ui.pushButton_b_next, &QPushButton::clicked, this, &DrillLengthEditor::toNextBatch);
 	connect(ui.pushButton_b_last, &QPushButton::clicked, this, &DrillLengthEditor::toLastBatch);
-	connect(ui.pushButton_b_submit, &QPushButton::clicked, this, &DrillLengthEditor::submitBatch);
+	connect(ui.toolButton_b_submit, &QToolButton::clicked, this, &DrillLengthEditor::submitBatch);
 	connect(ui.checkBox, &QCheckBox::toggled, this, &DrillLengthEditor::checkBoxChanged);
 
-	connect(ui.pushButton_b_import, &QPushButton::clicked, this, &DrillLengthEditor::importBatch);
-	connect(ui.pushButton_b_export, &QPushButton::clicked, this, &DrillLengthEditor::exportBatch);
+	connect(ui.toolButton_b_import, &QToolButton::clicked, this, &DrillLengthEditor::importBatch);
+	connect(ui.toolButton_b_export, &QToolButton::clicked, this, &DrillLengthEditor::exportBatch);
 
 	// > 列宽设置
 	ui.tableWidget_b->setColumnWidth(0, 180);
 	ui.tableWidget_b->setColumnWidth(1, 240);
 	ui.tableWidget_b->setColumnWidth(2, 90);
 	ui.tableWidget_b->setColumnWidth(3, 320);
-}
-
-DrillLengthEditor::~DrillLengthEditor()
-{
-
 }
 
 /* --------------------------------------------------------------
@@ -64,6 +83,10 @@ void DrillLengthEditor::openWord(){
 		return;
 	}
 	QDesktopServices::openUrl(QUrl("file:///" + info.absoluteFilePath()));
+}
+void DrillLengthEditor::openAbout(){
+	W_SoftwareAbout d(this);
+	d.exec();
 }
 
 /* --------------------------------------------------------------
@@ -131,13 +154,13 @@ void DrillLengthEditor::refreshSingleUi(){
 
 	// > 读取成功
 	if (this->m_open_successed){
-		ui.pushButton_s_editParam->setEnabled(true);
-		ui.pushButton_s_submit->setEnabled(true);
+		ui.toolButton_s_editParam->setEnabled(true);
+		ui.toolButton_s_submit->setEnabled(true);
 
 	// > 一般错误 - 无法修改
 	}else{
-		ui.pushButton_s_editParam->setEnabled(false);
-		ui.pushButton_s_submit->setEnabled(false);
+		ui.toolButton_s_editParam->setEnabled(false);
+		ui.toolButton_s_submit->setEnabled(false);
 	}
 }
 
