@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DrillLengthEditor.h"
 
+#include "updateLog/w_UpdateLog.h"
 #include "about/w_SoftwareAbout.h"
 #include "Source/FlowModule/s_LengthFlowManager.h"
 
@@ -42,6 +43,7 @@ void DrillLengthEditor::_init() {
 	connect(ui.toolButton_batchEdit, &QToolButton::clicked, this, &DrillLengthEditor::toStepBatch);
 	connect(ui.toolButton_singleEdit, &QToolButton::clicked, this, &DrillLengthEditor::toStepSingle);
 	connect(ui.toolButton_openWord, &QToolButton::clicked, this, &DrillLengthEditor::openWord);
+	connect(ui.toolButton_updateLog, &QToolButton::clicked, this, &DrillLengthEditor::openUpdateLog);
 	connect(ui.toolButton_author, &QToolButton::clicked, this, &DrillLengthEditor::openAbout);
 
 	connect(ui.toolButton_s_openFile, &QToolButton::clicked, this, &DrillLengthEditor::openSingleFile);
@@ -83,6 +85,10 @@ void DrillLengthEditor::openWord(){
 		return;
 	}
 	QDesktopServices::openUrl(QUrl("file:///" + info.absoluteFilePath()));
+}
+void DrillLengthEditor::openUpdateLog(){
+	W_UpdateLog d(this);
+	d.exec();
 }
 void DrillLengthEditor::openAbout(){
 	W_SoftwareAbout d(this);

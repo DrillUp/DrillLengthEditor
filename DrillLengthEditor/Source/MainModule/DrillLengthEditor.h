@@ -21,6 +21,7 @@ class DrillLengthEditor : public QMainWindow
 		void toStepBatch();
 		void toStepSingle();
 		void openWord();
+		void openUpdateLog();
 		void openAbout();
 
 	//-----------------------------------

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/DrillLengthEditor">
+    <file>Resources/icons/menu/Common_Refresh.png</file>
     <file>Resources/icons/nav/Run.png</file>
     <file>Resources/icons/nav/About.png</file>
     <file>Resources/icons/nav/Help.png</file>

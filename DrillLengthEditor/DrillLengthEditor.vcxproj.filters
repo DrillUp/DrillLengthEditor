@@ -73,6 +73,9 @@
     <Filter Include="源文件\【 主窗体 MainModule】\关于">
       <UniqueIdentifier>{c505fdb5-4e1b-4701-8f47-285a046d1e83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\【 主窗体 MainModule】\更新日志">
+      <UniqueIdentifier>{471923b2-2731-455c-b4ed-6616f1c90e98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -189,6 +192,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_w_SoftwareAbout.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="Source\MainModule\updateLog\w_UpdateLog.cpp">
+      <Filter>源文件\【 主窗体 MainModule】\更新日志</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_w_UpdateLog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_w_UpdateLog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utils\common\TTool.h">
@@ -222,6 +234,9 @@
       <Filter>源文件\【 插件模块 PluginModule】\最大值编辑器\修改器</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_w_SoftwareAbout.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_w_UpdateLog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -273,6 +288,12 @@
     </CustomBuild>
     <CustomBuild Include="Source\MainModule\about\w_SoftwareAbout.ui">
       <Filter>源文件\【 主窗体 MainModule】\关于</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source\MainModule\updateLog\w_UpdateLog.h">
+      <Filter>源文件\【 主窗体 MainModule】\更新日志</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Source\MainModule\updateLog\w_UpdateLog.ui">
+      <Filter>源文件\【 主窗体 MainModule】\更新日志</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
